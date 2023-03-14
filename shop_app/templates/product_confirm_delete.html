@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title%}Product confirm delete{% endblock %}
+{% block menu %}
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>Вы действительно хотите удалить товар?</h1>
+        <p>Title: {{ product.title }}</p>
+        <p>Text: {{ product.text }}</p>
+        <form action="{% url 'product_delete' product.pk %}" method="post">
+            {% csrf_token %}
+            <p><input type="submit" value="Удалить"></p>
+            <p><a class="cancel-btn" href="{% url 'index' %}">Отмена</a></p>
+        </form>
+    </div>
+{% endblock %}

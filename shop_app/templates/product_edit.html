@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load l10n %}
+{% block title %}Product Edit{% endblock %}
+{% block menu %}
+
+{% endblock %}
+{% block content %}
+<h1>Product Edit</h1>
+<form action="{% url 'product_edit' product.id %} " method="POST">
+    {% include 'partial/input_form.html' with button_text="Обновить" %}
+</form>
+{% endblock %}

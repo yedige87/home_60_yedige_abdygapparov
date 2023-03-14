@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load l10n %}
+{% block title %}Product View{% endblock %}
+{% block menu %}
+
+{% endblock %}
+{% block content %}
+<h1>Product View</h1>
+<div class="content">
+    <div class="product-list">
+        <div class="full-width">
+            <img class="product-img" src="/static/images/{{ product.photo }}">
+            <div class="product-desc">
+                <p class="product-title">{{ product.title }}</p>
+                <p class="product-category">{{ product.category }}</p>
+                <p class="product-price">{{ product.price|localize  }} KZT</p>
+                <p class="product-qty">{{ product.qty }} единиц</p>
+                <p class="product-desc">{{ product.text }}</p>
+                <p class="product-added">added: {{ product.created_at|date:"d-m-Y H:i:s"}}</p>
+                <br/>
+                <div>
+                    <a class="edit-button" href="{% url 'product_edit' product.id %}"> Edit </a>
+                    <a class="delete-button" href="{% url 'product_delete' product.id %}">Delete </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

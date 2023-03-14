@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load l10n %}
+{% block title %}Order View{% endblock %}
+{% block menu %}
+
+{% endblock %}
+{% block content %}
+<h1>Заказ № 1 </h1>
+
+{% if orders %}
+{% for client in orders %}
+{% if client.type == 3 and client.qty_old == 1 %}
+    <p>Клиент: {{ client.title }}</p>
+{% endif %}
+{% if client.type == 3 and client.qty_old == 2 %}
+    <p>Телефон: {{ client.title }}</p>
+{% endif %}
+{% if client.type == 3 and client.qty_old == 3 %}
+    <p>Адрес: {{ client.title }}</p>
+{% endif %}
+{% endfor %}
+
+<table>
+        <tbody>
+        <tr class="head">
+            <th>Наименование товара</th>
+            <th>Количество</th>
+            <th>Стоимость</th>
+            <th>Сумма</th>
+        </tr>
+        {% for good in orders %}
+            {% if good.type == 2 %}
+            <tr>
+                <td>{{good.title}}</td>
+                <td>{{good.qty}}</td>
+                <td>{{good.price}}</td>
+                <td>{{good.amount}}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% for good in orders %}
+            {% if good.type == 1 %}
+            <tr>
+                <td><b>{{good.title}}</b></td>
+                <td></td>
+                <td></td>
+                <td><b>{{good.amount}}</b></td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+{% else %}
+    <h1>Заказ пуст</h1>
+{% endif %}
+<br/>
+<br/>
+{% endblock %}

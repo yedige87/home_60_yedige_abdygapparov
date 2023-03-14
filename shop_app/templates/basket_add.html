@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load l10n %}
+{% block title %}Add to basket{% endblock %}
+{% block menu %}
+
+{% endblock %}
+{% block content %}
+<h1>Добавление товара в корзину</h1>
+                <br/>
+            <p>
+                {{ basket.title }} Остаток: {{ basket.qty_prod }}
+            </p>
+                <form action="{% url 'basket_add' basket.pk %} " method="POST">
+                    {% include 'partial/basket_qty.html' with button_text="Добавить в корзину" %}
+                </form>
+<br/>
+                <div>
+                    <a class="edit-button" href="{% url 'index' %}"> Отмена </a>
+                </div>
+{% endblock %}

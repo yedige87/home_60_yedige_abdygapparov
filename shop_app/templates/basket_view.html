@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load l10n %}
+{% block title %}Basket View{% endblock %}
+{% block menu %}
+
+{% endblock %}
+{% block content %}
+<h1>Товары в корзине</h1>
+
+{% if baskets %}
+
+<table>
+        <tbody>
+        <tr class="head">
+            <th>Наименование товара</th>
+            <th>Количество</th>
+            <th>Стоимость</th>
+            <th>Сумма</th>
+            <th>Удаление</th>
+        </tr>
+        {% for good in baskets %}
+            {% if good.type == 2 %}
+            <tr>
+                <td>{{good.title}}</td>
+                <td>{{good.qty}}</td>
+                <td>{{good.price}}</td>
+                <td>{{good.amount}}</td>
+                <td><a class="edit-button" href="{% url 'basket_delete' good.id %}">удалить</a></td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% for good in baskets %}
+            {% if good.type == 1 %}
+            <tr>
+                <td><b>{{good.title}}</b></td>
+                <td></td>
+                <td></td>
+                <td><b>{{good.amount}}</b></td>
+                <td></td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+ <a class="edit-button" href="{% url 'index' %}"> Продолжить покупки </a>
+ <a class="delete-button" href="{% url 'create_order' %}">Оформить заказ </a>
+{% else %}
+    <h1>Корзина пуста</h1>
+{% endif %}
+<br/>
+<br/>
+
+{% endblock %}
