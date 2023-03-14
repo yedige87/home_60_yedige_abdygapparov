@@ -7,7 +7,7 @@ from shop_app.forms import ProductForm, BasketForm
 from shop_app.models import Basket, Customer, Order
 from shop_app.models.products import Product, CategoryChoice
 
-sum = 0
+
 
 
 class Product_Detail(DetailView):
@@ -43,6 +43,7 @@ def check_product(request, pk):
     client_id = 1
     product = Product.objects.get(pk=pk)
     customer = Customer.objects.get(pk=client_id)
+
     try:
         basket = get_object_or_404(Basket, product_id=pk)
     except BaseException:
@@ -61,18 +62,21 @@ def check_product(request, pk):
         client.type = 3
         client.title = customer.name
         client.qty_old = 1
+        client.customer_id = client_id
         client.save()
 
         client = Basket.objects.create()
         client.type = 3
         client.title = customer.phone
         client.qty_old = 2
+        client.customer_id = client_id
         client.save()
 
         client = Basket.objects.create()
         client.type = 3
         client.title = customer.address
         client.qty_old = 3
+        client.customer_id = client_id
         client.save()
 
     return redirect(f'/basket_add/{basket.pk}')
@@ -98,7 +102,7 @@ def change_product(request, pk):
         if bas.type == 2:
             total_amount += bas.amount
 
-    total_rec = get_object_or_404(Basket, pk=1)
+    total_rec = Basket.objects.get(title='Итоговая сумма:')
     total_rec.amount = total_amount
     total_rec.save()
 
@@ -142,6 +146,12 @@ def create_order(request):
         ord.customer_id = basket.customer_id
         ord.save()
     Basket.objects.all().delete()
+    basket = Basket.objects.create()
+    basket.title = 'Итоговая сумма:'
+    basket.type = 1
+    basket.customer_id = 1
+    basket.qty = 99
+    basket.save()
     return redirect('order_view')
 
 
